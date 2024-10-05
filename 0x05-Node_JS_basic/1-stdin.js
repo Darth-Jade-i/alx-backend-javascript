@@ -1,15 +1,26 @@
-// program that takes a name from stdin and displays it to stdout
+/**
+ * Prompts the user to enter their name, reads the input from STDIN,
+ * and displays a message containing the user's name.
+ *
+ * When the user ends the program, a closing message is displayed.
+ *
+ * @example
+ * // Output:
+ * // Welcome to Holberton School, what is your name?
+ * // Darth Jade-i
+ * // Your name is: Darth Jade-i
+ * // This important software is now closing
+ */
 process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
-process.stdin.setEncoding('utf8');
+process.stdin.on('readable', () => {
+  const chunk = process.stdin.read();
 
-process.stdin.on('readable', function() {
-    const chunk = process.stdin.read();
-    if (chunk !== null) {
-	process.stdout.write('Your name is: ' + chunk);
-    }
+  if (chunk) {
+    process.stdout.write(`Your name is: ${chunk}`);
+  }
 });
 
-process.stdin.on('end', function() {
-    process.stdout.write('This important software is now closing.\n');
+process.stdin.on('end', () => {
+  process.stdout.write('This important software is now closing\n');
 });
