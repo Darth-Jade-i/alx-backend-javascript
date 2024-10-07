@@ -26,8 +26,7 @@ const countStudents = (dataPath) => new Promise((resolve, reject) => {
         const dbFieldNames = fileLines[0].split(',');
         const studentPropNames = dbFieldNames.slice(
           0,
-          dbFieldNames.length - 1
-        );
+          dbFieldNames.length - 1);
 
         for (const line of fileLines.slice(1)) {
           const studentRecord = line.split(',');
