@@ -13,6 +13,14 @@ app.get('/', (req, res) => {
   res.send('Welcome to the payment system');
 });
 
+// Add a new route with route parameter `id` that only accepts numbers using regex
+app.get('/cart/:id(\\d+)', (req, res) => {
+  const id = req.params.id; // Extract the cart ID from the route parameter
+  res.send(`Payment methods for cart ${id}`); // Send response with the cart ID
+});
+
+// If the `id` is not a number, Express will handle it and return a 404 by default
+
 // Start the server and listen on the specified port
 app.listen(PORT, () => {
   // Log message to console once the server is up

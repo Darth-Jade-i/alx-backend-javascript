@@ -24,3 +24,26 @@ describe('Index page', () => {
     });
   });
 });
+
+// Test suite for the cart page
+describe('Cart page', () => {
+  // Test case: Correct status code when `id` is a number
+  it('Correct status code when :id is a number', (done) => {
+    request.get('http://localhost:7865/cart/12', (error, response, body) => {
+      // Expect 200 status for valid `id`
+      expect(response.statusCode).to.equal(200);
+      // Expect correct response body
+      expect(body).to.equal('Payment methods for cart 12');
+      done(); // Call done when the test finishes
+    });
+  });
+
+  // Test case: Correct status code when `id` is NOT a number (should return 404)
+  it('Correct status code when :id is NOT a number', (done) => {
+    request.get('http://localhost:7865/cart/hello', (error, response, body) => {
+      // Expect 404 for invalid `id`
+      expect(response.statusCode).to.equal(404);
+      done(); // Call done when the test finishes
+    });
+  });
+});
