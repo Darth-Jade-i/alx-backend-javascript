@@ -1,26 +1,17 @@
-import fs from 'fs';
+/* eslint-disable */
 
-// eslint-disable-next-line import/prefer-default-export
-export const readDatabase = (filePath) => new Promise((resolve, reject) => {
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      reject(err);
-    } else {
-      const lines = data.trim().split('\n');
-      const fields = {};
-      lines.forEach((line, index) => {
-        if (index === 0) {
-          // Skip the header line
-          return;
-        }
-        // eslint-disable-next-line no-unused-vars
-        const [firstName, lastName, age, field] = line.split(',');
-        if (!fields[field]) {
-          fields[field] = [];
-        }
-        fields[field].push(`${firstName} ${lastName}`);
-      });
-      resolve(fields);
-    }
-  });
+import express from 'express'; // Import express
+import router from './routes/index'; // Import the routes
+
+const app = express(); // Create an instance of an Express app
+
+// Use the imported router for handling routes
+app.use('/', router);
+
+// Make the server listen on port 1245
+const port = 1245;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
+
+export default app; // Export the app for external use
